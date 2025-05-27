@@ -29,9 +29,10 @@ semBoolexp (O p q) estado               = semBoolexp p estado || semBoolexp q es
 
 
 semComm :: SintaxisAbstracta.Comm -> Es.Estado -> Es.Estado
-semComm Skip estado = estado
-semComm (Asign var exp) estado= escribirEstado var (semIntexp exp estado) estado
-semComm (Secuencia c0 c1) estado = semComm c1 ( semComm c0 estado)
+semComm Skip estado                     = estado
+semComm (Asign var exp) estado          = escribirEstado var (semIntexp exp estado) estado
+semComm (Secuencia c0 c1) estado        = semComm c1 ( semComm c0 estado)
+
 semComm (Condicional b c0 c1) estado =
     if semBoolexp b estado then semComm c0 estado else semComm c1 estado 
 
